@@ -1,0 +1,12 @@
+{
+  "name": "@circom-snarkjs-cra/root",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "yarn@3.2.3",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "react": "yarn workspace @circom-snarkjs-cra/react_app start"
+  }
+}
