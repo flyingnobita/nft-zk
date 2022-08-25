@@ -13,50 +13,31 @@ module.exports = async function builder(code, options) {
 
     let wc;
 
-    let errStr = "";
-    let msgStr = "";
     
     const instance = await WebAssembly.instantiate(wasmModule, {
         runtime: {
             exceptionHandler : function(code) {
-		let err;
+                let errStr;
                 if (code == 1) {
-                    err = "Signal not found.\n";
+                    errStr= "Signal not found. ";
                 } else if (code == 2) {
-                    err = "Too many signals set.\n";
+                    errStr= "Too many signals set. ";
                 } else if (code == 3) {
-                    err = "Signal already set.\n";
+                    errStr= "Signal already set. ";
 		} else if (code == 4) {
-                    err = "Assert Failed.\n";
+                    errStr= "Assert Failed. ";
 		} else if (code == 5) {
-                    err = "Not enough memory.\n";
+                    errStr= "Not enough memory. ";
 		} else if (code == 6) {
-                    err = "Input signal array access exceeds the size.\n";
+                    errStr= "Input signal array access exceeds the size";
 		} else {
-		    err = "Unknown error.\n";
+		    errStr= "Unknown error\n";
                 }
-                throw new Error(err + errStr);
+		// get error message from wasm
+		errStr += getMessage();
+                throw new Error(errStr);
             },
-	    printErrorMessage : function() {
-		errStr += getMessage() + "\n";
-                // console.error(getMessage());
-	    },
-	    writeBufferMessage : function() {
-			const msg = getMessage();
-			// Any calls to `log()` will always end with a `\n`, so that's when we print and reset
-			if (msg === "\n") {
-				console.log(msgStr);
-				msgStr = "";
-			} else {
-				// If we've buffered other content, put a space in between the items
-				if (msgStr !== "") {
-					msgStr += " "
-				}
-				// Then append the message to the message we are creating
-				msgStr += msg;
-			}
-	    },
-	    showSharedRWMemory : function() {
+	    showSharedRWMemory: function() {
 		printSharedRWMemory ();
             }
 
@@ -94,14 +75,8 @@ module.exports = async function builder(code, options) {
 	for (let j=0; j<shared_rw_memory_size; j++) {
 	    arr[shared_rw_memory_size-1-j] = instance.exports.readSharedRWMemory(j);
 	}
-
-	// If we've buffered other content, put a space in between the items
-	if (msgStr !== "") {
-		msgStr += " "
-	}
-	// Then append the value to the message we are creating
-	msgStr += (fromArray32(arr).toString());
-	}
+	console.log(fromArray32(arr));
+    }
 
 };
 

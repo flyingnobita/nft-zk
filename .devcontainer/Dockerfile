@@ -9,5 +9,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y install --no-install-recommends nlohmann-json3-dev libgmp-dev nasm
 RUN git clone https://github.com/iden3/circom.git && \
     cd circom && \
+    git checkout tags/v2.0.6 -b v2.0.6 && \
     cargo build --release && \
     cargo install --path circom
