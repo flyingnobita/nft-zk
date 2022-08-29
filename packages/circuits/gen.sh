@@ -56,4 +56,7 @@ snarkjs $2 prove zkeys/$1_$2_final.zkey $1_witness.wtns proof/$1_proof_$2.json p
 ## 7.2. Generate `verifyProof()` Call Parameters 
 snarkjs zkey export soliditycalldata proof/$1_public_$2.json proof/$1_proof_$2.json > $1_sol_calldata.txt
 
+## 7.3. Generate Verify Solidity Contract
+snarkjs zkey export solidityverifier zkeys/$1_$2_final.zkey proof/$1_$2.sol
+
 set +ex

@@ -13,13 +13,18 @@ import {
   Pre,
 } from "./components";
 
-const wasm = "multiplier2.wasm";
-const zkeyFinal = "multiplier2_plonk_final.zkey";
-const vkeyJsonFile = "multiplier2_verification_key_plonk.json";
+const wasm = "CheckSecret.wasm";
+const zkeyFinal = "CheckSecret_plonk_final.zkey";
+const vkeyJsonFile = "CheckSecret_verification_key_plonk.json";
 
 async function prove(input) {
   const { proof, publicSignals } = await plonk.fullProve(
-    { a: input.a, b: input.b },
+    {
+      secretHashed1: input.a,
+      secretHashed2: input.b,
+      secretHashed3: input.c,
+      secret: input.d,
+    },
     wasm,
     zkeyFinal
   );
@@ -43,12 +48,15 @@ async function verify(vkeyJson, publicSignals, proof) {
 function App() {
   const [status, setStatus] = useState("");
   const [input, setInput] = useState({
-    a: "3",
-    b: "11",
+    a: "2659885370391636708883459370353623141128982085472165018711164208023811132296",
+    b: "4420175747054003989426052527768028062432413895992728912331985761657509285976",
+    c: "16033069969059630745700456097076759987953764636749827514225296156239583210211",
+    d: "11111",
   });
   const [proof, setProof] = useState(null);
   const [publicSignals, setPublicSignals] = useState();
   const [vkeyJson, setvkeyJson] = useState();
+  const [solCallData, setSolCallData] = useState();
 
   async function loadVerificationKey() {
     await fetch(vkeyJsonFile)
@@ -78,6 +86,22 @@ function App() {
     }));
   };
 
+  const handleCInputChange = (event) => {
+    event.persist();
+    setInput((values) => ({
+      ...values,
+      c: event.target.value,
+    }));
+  };
+
+  const handleDInputChange = (event) => {
+    event.persist();
+    setInput((values) => ({
+      ...values,
+      d: event.target.value,
+    }));
+  };
+
   const handlePublicSignalChanged = (event) => {
     let val = [event.target.value];
     setPublicSignals(val);
@@ -97,6 +121,12 @@ function App() {
     e.preventDefault();
     let result = await verify(vkeyJson, publicSignals, proof);
     setStatus(result);
+  }
+
+  async function handleButtonGenSolCallData(e) {
+    e.preventDefault();
+    let result = await plonk.exportSolidityCallData(proof, publicSignals);
+    setSolCallData(result);
   }
 
   return (
@@ -127,6 +157,26 @@ function App() {
                 </label>
               </DivFlex>
               <DivFlex>
+                <label>
+                  c:
+                  <input
+                    type="text"
+                    value={input.c}
+                    onChange={handleCInputChange}
+                  />
+                </label>
+              </DivFlex>
+              <DivFlex>
+                <label>
+                  d:
+                  <input
+                    type="text"
+                    value={input.d}
+                    onChange={handleDInputChange}
+                  />
+                </label>
+              </DivFlex>
+              <DivFlex>
                 <FormInputButton type="submit" value="Prove" />
               </DivFlex>
             </form>
@@ -149,7 +199,7 @@ function App() {
           </DivFlex>
           {proof != null && (
             <DivScrollable>
-              <pre>{JSON.stringify(proof, null, 2)}</pre>
+              <Pre>{JSON.stringify(proof, null, 2)}</Pre>
             </DivScrollable>
           )}
 
@@ -165,6 +215,20 @@ function App() {
           </DivFlex>
 
           <DivStatus>{status}</DivStatus>
+
+          <DivFlex>
+            <Button onClick={handleButtonGenSolCallData}>
+              Generate Solidity Call Data
+            </Button>
+          </DivFlex>
+          <DivFlex>
+            <h4>Solidity Call Data</h4>
+          </DivFlex>
+          {solCallData != null && (
+            <DivScrollable>
+              <textarea readOnly value={JSON.stringify(solCallData, null, 2)} />
+            </DivScrollable>
+          )}
         </Body>
       </Container>
     </div>
