@@ -39,7 +39,8 @@
 				"codezombiech.gitignore",
 				"eamodio.gitlens",
 				"styled-components.vscode-styled-components",
-				"iden3.circom"
+				"iden3.circom",
+				"tintinweb.solidity-visual-auditor"
 			]
 		}
 	},
