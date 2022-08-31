@@ -22,6 +22,7 @@
     "typescript": "^4.8.2"
   },
   "scripts": {
+    "localnode": "npx hardhat node",
     "compile": "npx hardhat compile",
     "deploy1": "npx hardhat run --network localhost scripts/01-deploy_CheckSecret_plonk.ts",
     "deploy2": "npx hardhat run --network localhost scripts/02-deploy_MintZKNft.ts"

@@ -1,11 +1,12 @@
 import { ethers } from "hardhat";
 import DeployHelper from "./deploy_helper";
+import * as PlonkVerifierAddress from "../frontend/PlonkVerifier_address.json";
 
 const contractName: string = "MintZKNft";
 
 async function main(): Promise<void> {
 
-  const addressPlonkVerifier = "0x05323Ca3193169bD5D6441e8a737262e9008d8da";
+  const addressPlonkVerifier = PlonkVerifierAddress.Contract;
 
   const [deployer] = await ethers.getSigners();
   const deployHelper = new DeployHelper(deployer);
