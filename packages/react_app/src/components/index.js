@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: #ffffff;
@@ -28,6 +28,7 @@ export const Body = styled.div`
   font-size: calc(10px + 2vmin);
   justify-content: center;
   margin-top: 20px;
+  padding-bottom: 80px;
 `;
 
 export const Title = styled.h1`
@@ -131,12 +132,140 @@ export const LinkLogo = styled.img`
 
 export const DivScrollable = styled.div`
   overflow-y: scroll;
-  height: 300px;
-  margin-left: 10%;
-  margin-right: 10%;
+  height: 200px;
+  width: 100%;
 `;
 
 export const Pre = styled.pre`
   border: 10;
   border-color: black;
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word;
+`;
+
+export const Textarea = styled.textarea`
+  width: 100%;
+`;
+
+export const DivTooltipText = styled.div`
+  visibility: hidden;
+  width: 150px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px 5px 5px;
+  top: -30px;
+  left: -60px;
+
+  font-size: 0.5em;
+  font-family: monospace;
+  text-align: left;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+`;
+
+export const DivTooltip = styled.div`
+  position: relative;
+  display: inline-block;
+  color: #ab2424;
+  /* border-bottom: 1px dotted black; */
+
+  &:hover ${DivTooltipText} {
+    visibility: visible;
+  }
+`;
+
+export const Details = styled.details`
+  color: #282c34;
+  cursor: pointer;
+`;
+
+export const Summary = styled.summary`
+  /* color: #282c34; */
+  font-size: 0.7em;
+  font-family: monospace;
+`;
+
+export const ZkDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #282c34;
+  background-color: #f1f1f1;
+  padding: 20px;
+  font-family: monospace;
+  font-size: 0.5em;
+`;
+
+export const DivLeftAlign = styled.div`
+  float: right;
+  width: 80%;
+  padding: 10px;
+`;
+
+export const DetailButton = styled.button`
+  background-color: white;
+  border: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  color: #282c34;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 5px;
+  margin: 10px 0 0 0;
+  text-align: center;
+  text-decoration: none;
+  font-family: monospace;
+  width: 30%;
+`;
+
+export const DivFlexInputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+  align-items: center;
+  width: 100%;
+`;
+
+export const DivFlexInput = styled.input`
+  border: none;
+  /* border-bottom: 2px solid #282c34; */
+  font-family: monospace;
+  /* color: #ab2424; */
+  font-size: 1em;
+  margin-top: 4px;
+  flex-grow: 4;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const DivFlexFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+`;
+
+export const DivFlexForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: flex-start;
+  width: 100%;
+`;
+
+export const ZKDetailStatus = styled.div`
+  margin-top: 15px;
+  text-align: center;
+  color: #ab2424;
+  font-family: monospace;
+  font-size: 1em;
+  margin: 30px 0px 20px 0px;
 `;
