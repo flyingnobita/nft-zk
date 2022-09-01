@@ -4,6 +4,6 @@
 
 ## TO DO
 
-- allow string as passwords
+- TODO: allow string as passwords
   - "signals can only be integer"
   - maybe use a string to integer encoder and decoder

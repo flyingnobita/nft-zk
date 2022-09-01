@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 
 import {
@@ -32,6 +32,11 @@ import {
   DivFlexForm,
   ZKDetailStatus,
   Textarea,
+  ToggleWrapper,
+  ToggleLabel,
+  Toggle,
+  ToggleLabelExternal,
+  ToggleContainer,
 } from "./components";
 
 import { prove, verify, genSolCallData } from "./components/zk";
@@ -44,7 +49,8 @@ import MintZKNftAbiJson from "@nft-zk/contracts/frontend/MintZKNft.json";
 import * as MintZKNftAddressJson from "@nft-zk/contracts/frontend/MintZKNft_address.json";
 
 const MintZKNftAddress = MintZKNftAddressJson.Contract;
-const vkeyJsonFile = "CheckSecret_verification_key_plonk.json";
+const vkeyJsonFilePlonk = "CheckSecret_verification_key_plonk.json";
+const vkeyJsonFileGroth16 = "CheckSecret_verification_key_groth16.json";
 
 const hashedSecret1 =
   "2659885370391636708883459370353623141128982085472165018711164208023811132296";
@@ -67,6 +73,7 @@ function App() {
   const [vkeyJson, setvkeyJson] = useState();
   const [solCallData, setSolCallData] = useState();
   const [secret, setSecret] = useState("");
+  const [isGroth16, setGroth16] = useState(false);
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const showStatus = (inputStatus) => {
@@ -76,12 +83,12 @@ function App() {
     setZkStatus(inputStatus);
   };
 
-  async function connect() {
+  async function mint() {
     showStatus("");
     let solCallData, proof, publicSignals;
     try {
       showStatus("Generating proof...");
-      ({ proof, publicSignals } = await prove(input));
+      ({ proof, publicSignals } = await prove(input, isGroth16));
       setProof(proof);
       setPublicSignals(publicSignals);
 
@@ -97,9 +104,14 @@ function App() {
         showStatus("Public Signals or Proof missing");
         return;
       }
-      solCallData = await genSolCallData(proof, publicSignals);
-      setSolCallData(solCallData);
-      showStatus("Solidity call data generated!");
+      const result = await genSolCallData(proof, publicSignals, isGroth16);
+      if (result[0]) {
+        solCallData = result[1];
+        setSolCallData(solCallData);
+        showStatus("Solidity call data generated!");
+      } else {
+        showStatus(result[1]);
+      }
     } catch (err) {
       showStatus("Secret incorrect");
       // console.log(err);
@@ -108,6 +120,7 @@ function App() {
     const signer = provider.getSigner();
     const signerAddress_ = await signer.getAddress();
     // console.log("solCallData: ", solCallData);
+    // console.log(typeof solCallData);
     // console.log("signerAddress_: ", signerAddress_);
 
     if (
@@ -123,26 +136,46 @@ function App() {
           signer
         );
 
-        const solCallDataArray = solCallData.split(",");
-        let splits = [solCallDataArray.shift(), solCallDataArray.join(",")];
-        let proofSolCallData = splits[0];
-        let publicSignalsSolCallData = JSON.parse(splits[1]);
+        let res;
 
-        const res = await MintZKNftContract.purchase(
-          proofSolCallData,
-          publicSignalsSolCallData
-        );
-        // console.log("res: ", res);
-        if (res.hash) {
-          showStatus("Minting success!");
+        if (!isGroth16) {
+          const solCallDataArray = solCallData.split(",");
+          let splits = [solCallDataArray.shift(), solCallDataArray.join(",")];
+          let proofSolCallData = splits[0];
+          let publicSignalsSolCallData = JSON.parse(splits[1]);
+
+          // console.log("proofSolCallData: ", proofSolCallData);
+          // console.log("publicSignalsSolCallData: ", publicSignalsSolCallData);
+
+          res = await MintZKNftContract.mintPlonk(
+            proofSolCallData,
+            publicSignalsSolCallData
+          );
+
+          if (res.hash) {
+            showStatus("Minting success!");
+          }
+        } else {
+          let groth16SolCallData = JSON.parse("[" + solCallData + "]");
+
+          res = await MintZKNftContract.mintGroth16(
+            groth16SolCallData[0],
+            groth16SolCallData[1],
+            groth16SolCallData[2],
+            groth16SolCallData[3]
+          );
+
+          if (res.hash) {
+            showStatus("Minting success!");
+          }
         }
       } catch (err) {
-        // console.log("err: ", err);
-        // console.log("err.name: ", err.name);
-        // console.log("err.code: ", err.code);
-        // console.log("err.message: ", err.message);
-        // console.log("err.data: ", err.data);
-        // console.log("typeof(err.message): ", typeof err.message);
+        console.log("err: ", err);
+        console.log("err.name: ", err.name);
+        console.log("err.code: ", err.code);
+        console.log("err.message: ", err.message);
+        console.log("err.data: ", err.data);
+        console.log("typeof(err.message): ", typeof err.message);
 
         if (!err.message) {
           if (
@@ -189,17 +222,17 @@ function App() {
     }
   }
 
-  async function loadVerificationKey() {
-    await fetch(vkeyJsonFile)
+  const loadVerificationKey = useCallback(async () => {
+    await fetch(isGroth16 ? vkeyJsonFileGroth16 : vkeyJsonFilePlonk)
       .then((response) => response.json())
       .then((data) => {
         setvkeyJson(data);
       });
-  }
+  }, [isGroth16]);
 
   useEffect(() => {
     loadVerificationKey();
-  }, []);
+  }, [loadVerificationKey]);
 
   const handleAInputChange = (event) => {
     event.persist();
@@ -243,11 +276,11 @@ function App() {
     e.preventDefault();
     showZkStatus("Generating proof...");
     try {
-      const { proof, publicSignals } = await prove(input);
+      const { proof, publicSignals } = await prove(input, isGroth16);
       setProof(proof);
       setPublicSignals(publicSignals);
 
-      showZkStatus("Public Signals and Proof generated");
+      showZkStatus("Proof success");
     } catch (err) {
       // console.log(err);
       showZkStatus("Secret incorrect");
@@ -257,7 +290,7 @@ function App() {
   async function handleButtonVerify(e) {
     e.preventDefault();
     showZkStatus("Verifying proof...");
-    const res = await verify(vkeyJson, publicSignals, proof);
+    const res = await verify(vkeyJson, publicSignals, proof, isGroth16);
     showZkStatus(res);
   }
 
@@ -268,24 +301,45 @@ function App() {
       showZkStatus("Public Signals or Proof missing");
       return;
     }
-    const solCallData = await genSolCallData(proof, publicSignals);
-    setSolCallData(solCallData);
+    const result = await genSolCallData(proof, publicSignals, isGroth16);
+    if (result[0]) {
+      setSolCallData(result[1]);
+    } else {
+      showZkStatus(result[1]);
+      return;
+    }
     showZkStatus("Solidity verification parameters generated!");
   }
 
   async function handleButtonMint(e) {
     e.preventDefault();
-    await connect();
+    await mint();
   }
+
+  const onNewsletterChange = (checked) => {
+    setGroth16(checked);
+  };
 
   return (
     <div className="App">
       <Container>
         <Body>
           <Title>Mint AI Generated Kanji NFTs with Zero Knowledge Proofs</Title>
+          <ToggleContainer>
+            <ToggleLabelExternal>Plonk</ToggleLabelExternal>
+            <ToggleWrapper>
+              <Toggle
+                id="checkbox"
+                type="checkbox"
+                checked={isGroth16}
+                onChange={(e) => onNewsletterChange(e.target.checked)}
+              />
+              <ToggleLabel htmlFor="checkbox" />
+            </ToggleWrapper>
+            <ToggleLabelExternal>Groth16</ToggleLabelExternal>
+          </ToggleContainer>
           <Image src={logo} alt="kanji" />
           <PriceText>Price - FREE</PriceText>
-
           <DivSecret>
             <LabelSecret>SECRET</LabelSecret>
             <DivTooltip>
@@ -303,7 +357,6 @@ function App() {
               }}
             />
           </DivSecret>
-
           <DivFlex>
             <Button onClick={handleButtonMint}>Mint </Button>
           </DivFlex>
@@ -311,7 +364,6 @@ function App() {
           <Link href="https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa">
             blog post
           </Link>
-
           <DivLeftAlign>
             <Details>
               <Summary>ZK</Summary>
@@ -385,14 +437,10 @@ function App() {
                 <DetailButton onClick={handleButtonGenSolCallData}>
                   Generate
                 </DetailButton>
-                {/* <DetailButton onClick={handleButtonConnect}>
-                  Connect
-                </DetailButton> */}
                 <ZKDetailStatus>{zkStatus}</ZKDetailStatus>
               </ZkDetails>
             </Details>
           </DivLeftAlign>
-
           <BottomText>
             <p>
               Kanji generated from{" "}

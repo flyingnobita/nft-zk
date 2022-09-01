@@ -35,6 +35,7 @@ export const Title = styled.h1`
   display: flex;
   color: #282c34;
   text-align: center;
+  max-width: 80%;
 `;
 
 export const DivFlex = styled.div`
@@ -270,4 +271,62 @@ export const ZKDetailStatus = styled.div`
   font-family: monospace;
   font-size: 1em;
   margin: 30px 0px 20px 0px;
+`;
+
+export const ToggleWrapper = styled.div`
+  position: relative;
+`;
+
+export const ToggleLabel = styled.label`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 62px;
+  height: 26px;
+  border-radius: 15px;
+  background: yellow;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    background: #ffffff;
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+`;
+
+export const Toggle = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 62px;
+  height: 26px;
+  &:checked + ${ToggleLabel} {
+    background: #4fbe79;
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-left: 41px;
+      transition: 0.2s;
+    }
+  }
+`;
+
+export const ToggleLabelExternal = styled.div`
+  font-size: 10;
+  color: black;
+  margin: 0px 20px 10px 10px;
+`;
+
+export const ToggleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;

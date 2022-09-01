@@ -53,8 +53,11 @@ if [ ! -d proof ]; then
 fi
 snarkjs $2 prove zkeys/$1_$2_final.zkey $1_witness.wtns proof/$1_proof_$2.json proof/$1_public_$2.json
 
+## 6 Verify Proof with CLI
+snarkjs $2 verify zkeys/$1_verification_key_$2.json proof/$1_public_$2.json proof/$1_proof_$2.json
+
 ## 7.2. Generate `verifyProof()` Call Parameters 
-snarkjs zkey export soliditycalldata proof/$1_public_$2.json proof/$1_proof_$2.json > $1_sol_calldata.txt
+snarkjs zkey export soliditycalldata proof/$1_public_$2.json proof/$1_proof_$2.json > $1_sol_calldata_$2.txt
 
 ## 7.3. Generate Verify Solidity Contract
 snarkjs zkey export solidityverifier zkeys/$1_$2_final.zkey proof/$1_$2.sol
