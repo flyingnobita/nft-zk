@@ -282,7 +282,7 @@ function App() {
     <div className="App">
       <Container>
         <Body>
-          <Title>Mint AI Generated Kanji NFTs</Title>
+          <Title>Mint AI Generated Kanji NFTs with Zero Knowledge Proofs</Title>
           <Image src={logo} alt="kanji" />
           <PriceText>Price - FREE</PriceText>
 
@@ -308,6 +308,9 @@ function App() {
             <Button onClick={handleButtonMint}>Mint </Button>
           </DivFlex>
           <DivStatus>{status}</DivStatus>
+          <Link href="https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa">
+            blog post
+          </Link>
 
           <DivLeftAlign>
             <Details>
