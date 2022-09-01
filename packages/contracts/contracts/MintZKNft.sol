@@ -13,6 +13,7 @@ contract MintZKNft is ERC721, Ownable {
 
     uint256 public constant SALE_MAX = 100;
     uint16 public constant AMOUNT = 1;
+    uint16 public constant NFT_ID_OFFSET = 10;
     address public PAYOUT_ADDRESS;
     string private _tokenBaseURI =
         "https://nft-api.flyingnobita.workers.dev/api/metadata/";
@@ -35,7 +36,7 @@ contract MintZKNft is ERC721, Ownable {
             "Kanji: Contract Mint Not Allowed"
         );
 
-        _mint(msg.sender, totalSupply + AMOUNT);
+        _mint(msg.sender, totalSupply + AMOUNT + NFT_ID_OFFSET);
         totalSupply += AMOUNT;
     }
 

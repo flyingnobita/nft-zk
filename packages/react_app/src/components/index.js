@@ -148,6 +148,8 @@ export const Pre = styled.pre`
 
 export const Textarea = styled.textarea`
   width: 100%;
+  font-family: monospace;
+  font-size: 1em;
 `;
 
 export const DivTooltipText = styled.div`
