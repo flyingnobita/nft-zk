@@ -152,14 +152,14 @@ export const Textarea = styled.textarea`
 
 export const DivTooltipText = styled.div`
   visibility: hidden;
-  width: 150px;
+  width: max-content;
   background-color: black;
   color: #fff;
   text-align: center;
   border-radius: 6px;
   padding: 5px 5px 5px 5px;
   top: -30px;
-  left: -60px;
+  left: -90px;
 
   font-size: 0.5em;
   font-family: monospace;
