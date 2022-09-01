@@ -29,7 +29,6 @@ export async function verify(vkeyJson, publicSignals, proof) {
   if (!publicSignals || !proof) {
     return "Public Signals or Proof missing";
   }
-  console.log(publicSignals);
   try {
     const res = await plonk.verify(vkeyJson, publicSignals, proof);
     if (res === true) {

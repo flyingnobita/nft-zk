@@ -88,7 +88,8 @@ function App() {
       showStatus("");
     } catch (err) {
       showStatus("Secret incorrect");
-      console.log(err);
+      // console.log(err);
+      return;
     }
     try {
       showStatus("Generating solidity call data...");
@@ -101,13 +102,13 @@ function App() {
       showStatus("Solidity call data generated!");
     } catch (err) {
       showStatus("Secret incorrect");
-      console.log(err);
+      // console.log(err);
     }
 
     const signer = provider.getSigner();
     const signerAddress_ = await signer.getAddress();
-    console.log("solCallData: ", solCallData);
-    console.log("signerAddress_: ", signerAddress_);
+    // console.log("solCallData: ", solCallData);
+    // console.log("signerAddress_: ", signerAddress_);
 
     if (
       solCallData &&
@@ -131,7 +132,7 @@ function App() {
           proofSolCallData,
           publicSignalsSolCallData
         );
-        console.log("res: ", res);
+        // console.log("res: ", res);
         if (res.hash) {
           showStatus("Minting success!");
         }
@@ -234,11 +235,8 @@ function App() {
 
   const handlePublicSignalChanged = (event) => {
     let val = [event.target.value];
-    console.log(val);
-    console.log(typeof val);
     val = val[0].split(",");
     setPublicSignals(val);
-    console.log(val);
   };
 
   async function handleButtonProve(e) {
@@ -251,7 +249,7 @@ function App() {
 
       showZkStatus("Public Signals and Proof generated");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       showZkStatus("Secret incorrect");
     }
   }
