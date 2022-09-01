@@ -263,14 +263,14 @@ function App() {
 
   async function handleButtonGenSolCallData(e) {
     e.preventDefault();
-    showZkStatus("Generating solidity call data...");
+    showZkStatus("Generating solidity verification [arameters...");
     if (!publicSignals || !proof) {
       showZkStatus("Public Signals or Proof missing");
       return;
     }
     const solCallData = await genSolCallData(proof, publicSignals);
     setSolCallData(solCallData);
-    showZkStatus("Solidity call data generated!");
+    showZkStatus("Solidity verification parameters generated!");
   }
 
   async function handleButtonMint(e) {
@@ -373,7 +373,7 @@ function App() {
                 </DivScrollable>
                 <DetailButton onClick={handleButtonVerify}>Verify</DetailButton>
                 <ZKDetailStatus>{zkStatus}</ZKDetailStatus>
-                <h3>Solidity Call Data</h3>
+                <h3>Solidity Verification Parameters</h3>
                 {solCallData != null && (
                   <DivScrollable>
                     <Pre>{JSON.stringify(solCallData, null, 2)}</Pre>
