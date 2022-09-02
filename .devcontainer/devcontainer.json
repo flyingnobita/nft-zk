@@ -57,5 +57,10 @@
 	"remoteUser": "vscode",
 	"features": {
 		"node": "lts"
-	}
+	},
+	"containerEnv": {
+		"DOPPLER_PROJECT": "ethereum",
+		"DOPPLER_CONFIG": "dev",
+		"DOPPLER_TOKEN": "${localEnv:DOPPLER_TOKEN}" // Don't hard-code this!
+	},
 }
