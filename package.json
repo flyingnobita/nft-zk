@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "react": "yarn workspace @nft-zk/react_app start",
+    "reactBuild": "yarn workspace @nft-zk/react_app build",
     "localnode": "yarn workspace @nft-zk/contracts localnode",
     "deployLocalhost": "yarn workspace @nft-zk/contracts deployLocalhost",
     "deployRinkeby": "yarn workspace @nft-zk/contracts deployRinkeby"
