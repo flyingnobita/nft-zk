@@ -136,8 +136,9 @@ function App() {
           MintZKNftAbiJson,
           signer
         );
+        console.log("MintZKNftContract: ", MintZKNftContract);
 
-        let res;
+        let tx;
 
         if (!isGroth16) {
           const solCallDataArray = solCallData.split(",");
@@ -148,29 +149,27 @@ function App() {
           // console.log("proofSolCallData: ", proofSolCallData);
           // console.log("publicSignalsSolCallData: ", publicSignalsSolCallData);
 
-          res = await MintZKNftContract.mintPlonk(
+          tx = await MintZKNftContract.mintPlonk(
             proofSolCallData,
             publicSignalsSolCallData,
             { gasLimit: 1000000 }
           );
-
-          if (res.hash) {
-            showStatus("Minting success!");
-          }
         } else {
           let groth16SolCallData = JSON.parse("[" + solCallData + "]");
 
-          res = await MintZKNftContract.mintGroth16(
+          tx = await MintZKNftContract.mintGroth16(
             groth16SolCallData[0],
             groth16SolCallData[1],
             groth16SolCallData[2],
             groth16SolCallData[3],
             { gasLimit: 1000000 }
           );
-
-          if (res.hash) {
-            showStatus("Minting success!");
-          }
+        }
+        console.log("tx BEFORE tx.wait: ", tx);
+        let tx_receipt = await tx.wait();
+        console.log("tx_receipt: ", tx_receipt);
+        if (tx_receipt.status === 1) {
+          showStatus("Minting success!");
         }
       } catch (err) {
         console.log("err: ", err);
