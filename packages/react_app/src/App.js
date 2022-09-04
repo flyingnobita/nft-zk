@@ -95,7 +95,7 @@ function App() {
       showStatus("");
     } catch (err) {
       showStatus("Secret incorrect");
-      console.log(err);
+      // console.log(err);
       return;
     }
     try {
@@ -136,10 +136,10 @@ function App() {
           MintZKNftAbiJson,
           signer
         );
-        console.log("MintZKNftContract: ", MintZKNftContract);
+        // console.log("MintZKNftContract: ", MintZKNftContract);
 
-        let contractCode = await provider.getCode(MintZKNftAddress);
-        console.log("contractCode: ", contractCode);
+        // let contractCode = await provider.getCode(MintZKNftAddress);
+        // console.log("contractCode: ", contractCode);
 
         let tx;
 
@@ -168,19 +168,17 @@ function App() {
             { gasLimit: 1000000 }
           );
         }
-        console.log("tx BEFORE tx.wait: ", tx);
         let tx_receipt = await tx.wait();
-        console.log("tx_receipt: ", tx_receipt);
         if (tx_receipt.status === 1) {
           showStatus("Minting success!");
         }
       } catch (err) {
-        console.log("err: ", err);
-        console.log("err.name: ", err.name);
-        console.log("err.code: ", err.code);
-        console.log("err.message: ", err.message);
-        console.log("err.data: ", err.data);
-        console.log("typeof(err.message): ", typeof err.message);
+        // console.log("err: ", err);
+        // console.log("err.name: ", err.name);
+        // console.log("err.code: ", err.code);
+        // console.log("err.message: ", err.message);
+        // console.log("err.data: ", err.data);
+        // console.log("typeof(err.message): ", typeof err.message);
 
         if (!err.message) {
           if (
@@ -205,10 +203,7 @@ function App() {
           contractError = contractError.substring(0, contractError.length - 2);
 
           showStatus(contractError);
-        } else if (
-          err.message ===
-          "MetaMask Tx Signature: User denied transaction signature."
-        ) {
+        } else if (err.message.includes("user rejected transaction")) {
           showStatus("You cancelled the transaction");
         } else if (err.message.includes("execution reverted: ")) {
           showStatus(
@@ -287,7 +282,7 @@ function App() {
 
       showZkStatus("Proof success");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       showZkStatus("Secret incorrect");
     }
   }
@@ -366,9 +361,6 @@ function App() {
             <Button onClick={handleButtonMint}>Mint </Button>
           </DivFlex>
           <DivStatus>{status}</DivStatus>
-          <Link href="https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa">
-            blog post
-          </Link>
           <DivLeftAlign>
             <Details>
               <Summary>ZK Details</Summary>
@@ -446,6 +438,9 @@ function App() {
               </ZkDetails>
             </Details>
           </DivLeftAlign>
+          <Link href="https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa">
+            blog post
+          </Link>
           <BottomText>
             <p>
               Kanji generated from{" "}
