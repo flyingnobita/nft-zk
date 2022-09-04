@@ -117,6 +117,7 @@ function App() {
       // console.log(err);
     }
 
+    await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const signerAddress_ = await signer.getAddress();
     // console.log("solCallData: ", solCallData);
