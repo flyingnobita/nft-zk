@@ -95,7 +95,7 @@ function App() {
       showStatus("");
     } catch (err) {
       showStatus("Secret incorrect");
-      // console.log(err);
+      console.log(err);
       return;
     }
     try {
@@ -282,7 +282,7 @@ function App() {
 
       showZkStatus("Proof success");
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       showZkStatus("Secret incorrect");
     }
   }
@@ -366,7 +366,7 @@ function App() {
           </Link>
           <DivLeftAlign>
             <Details>
-              <Summary>ZK</Summary>
+              <Summary>ZK Details</Summary>
               <ZkDetails>
                 <h2>Prover</h2>
                 <DivFlexFormContainer>
@@ -450,7 +450,7 @@ function App() {
             </p>
           </BottomText>
           <LinkLogoContainer>
-            <Link href="https://github.com/flyingnobita/nft-kanji-solidity">
+            <Link href="https://github.com/flyingnobita/nft-zk">
               <LinkLogo src={githubLogo} alt="github" />
             </Link>
             <Link href="https://testnets.opensea.io/collection/kanji-v3">
