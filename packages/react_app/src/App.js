@@ -138,6 +138,9 @@ function App() {
         );
         console.log("MintZKNftContract: ", MintZKNftContract);
 
+        let contractCode = await provider.getCode(MintZKNftAddress);
+        console.log("contractCode: ", contractCode);
+
         let tx;
 
         if (!isGroth16) {

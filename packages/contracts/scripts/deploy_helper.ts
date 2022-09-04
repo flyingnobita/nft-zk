@@ -11,18 +11,23 @@ export default class DeployHelper {
   deployerBalanceAfter: BigNumber = BigNumber.from(0);
   deployerBalanceAfterReadable = "";
   deployerAddress = "";
+  networkName = "";
+  networkChainId = "";
 
   constructor(deployer: Signer) {
     this.deployer = deployer;
   }
 
   async beforeDeploy(): Promise<void> {
+    this.networkChainId = (await this.deployer.getChainId()).toString()
+
     this.deployerBalanceBefore = await this.deployer.getBalance();
     this.deployerBalanceBeforeReadable = ethers.utils.commify(
       ethers.utils.formatEther(this.deployerBalanceBefore.toString())
     );
     this.deployerAddress = await this.deployer.getAddress();
 
+    console.log("Chain ID: ", this.networkChainId)
     console.log("Deployer:", await this.deployer.getAddress());
     console.log(
       "Deployer Balance Before (ETH):",
@@ -56,7 +61,8 @@ export default class DeployHelper {
       contractName,
       this.deployerAddress,
       this.deployerBalanceBeforeReadable,
-      this.deployerBalanceAfterReadable
+      this.deployerBalanceAfterReadable,
+      this.networkChainId
     );
   }
 }
@@ -66,7 +72,8 @@ function saveFrontendFiles(
   contractName: string,
   deployerAddress: string,
   deployerBalanceBeforeReadable: string,
-  deployerBalanceAfterReadable: string
+  deployerBalanceAfterReadable: string,
+  networkChainId: string
 ) {
   const contractsDir = __dirname + "/../frontend";
 
@@ -78,6 +85,7 @@ function saveFrontendFiles(
     contractsDir + "/" + contractName + "_address.json",
     JSON.stringify(
       {
+        "Netowrk Chain ID": networkChainId,
         Contract: contract.address,
         Deployer: deployerAddress,
         "Deployer Balance Before": deployerBalanceBeforeReadable,

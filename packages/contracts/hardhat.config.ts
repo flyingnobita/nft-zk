@@ -1,13 +1,17 @@
 // import { HardhatUserConfig } from "hardhat/config";
+import "hardhat-deploy"
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-etherscan";
-
+import { HardhatUserConfig } from 'hardhat/types';
+import 'hardhat-deploy';
+import '@nomiclabs/hardhat-ethers';
+import '@typechain/hardhat';
 import 'dotenv/config'
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-module.exports = {
+const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
     hardhat: {
@@ -23,11 +27,13 @@ module.exports = {
       accounts: [`${process.env.RINKEBY_PRIVATE_KEY}`],
       gas: 2100000,
       gasPrice: 8000000000,
-      saveDeployments: true,
-      chainid: 4,
+      // saveDeployments: true,
+      // chainid: 4,
     },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
 };
+
+export default config;
