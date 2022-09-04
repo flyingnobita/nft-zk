@@ -150,7 +150,8 @@ function App() {
 
           res = await MintZKNftContract.mintPlonk(
             proofSolCallData,
-            publicSignalsSolCallData
+            publicSignalsSolCallData,
+            { gasLimit: 1000000 }
           );
 
           if (res.hash) {
@@ -163,7 +164,8 @@ function App() {
             groth16SolCallData[0],
             groth16SolCallData[1],
             groth16SolCallData[2],
-            groth16SolCallData[3]
+            groth16SolCallData[3],
+            { gasLimit: 1000000 }
           );
 
           if (res.hash) {
