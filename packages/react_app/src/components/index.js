@@ -184,7 +184,9 @@ export const DivTooltip = styled.div`
   }
 `;
 
-export const Details = styled.details`
+export const Details = styled.details.attrs((props) => ({
+  open: true,
+}))`
   color: #282c34;
   cursor: pointer;
 `;
