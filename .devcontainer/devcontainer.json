@@ -41,7 +41,8 @@
 				"styled-components.vscode-styled-components",
 				"iden3.circom",
 				"tintinweb.solidity-visual-auditor",
-				"gruntfuggly.todo-tree"
+				"gruntfuggly.todo-tree",
+				"JuanBlanco.solidity"
 			]
 		}
 	},
