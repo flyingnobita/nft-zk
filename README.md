@@ -1,9 +1,8 @@
 # Mint AI Generated Kanji NFTs with Zero Knowledge
 
-[blog post](https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa)
-
 ## TO DO
 
+- TODO: blog post
 - TODO: add nullifier
 - TODO: allow string as passwords
   - "signals can only be integer"

@@ -438,9 +438,6 @@ function App() {
               </ZkDetails>
             </Details>
           </DivLeftAlign>
-          <Link href="https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa">
-            blog post
-          </Link>
           <BottomText>
             <p>
               Kanji generated from{" "}
