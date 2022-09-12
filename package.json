@@ -10,7 +10,7 @@
     "react": "yarn workspace @nft-zk/react_app start",
     "reactBuild": "yarn workspace @nft-zk/react_app build",
     "localnode": "yarn workspace @nft-zk/contracts localnode",
-    "deployLocalhost": "yarn workspace @nft-zk/contracts deployLocalhost",
+    "deployLocalnode": "yarn workspace @nft-zk/contracts deployLocalnode",
     "deployRinkeby": "yarn workspace @nft-zk/contracts deployRinkeby"
   },
   "devDependencies": {},

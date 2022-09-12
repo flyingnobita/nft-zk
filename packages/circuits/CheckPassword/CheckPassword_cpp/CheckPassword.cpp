@@ -143,8 +143,8 @@ void PoseidonEx_68_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::str
 void PoseidonEx_68_run(uint ctx_index,Circom_CalcWit* ctx);
 void Poseidon_69_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
 void Poseidon_69_run(uint ctx_index,Circom_CalcWit* ctx);
-void CheckSecret_70_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
-void CheckSecret_70_run(uint ctx_index,Circom_CalcWit* ctx);
+void CheckPassword_70_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather);
+void CheckPassword_70_run(uint ctx_index,Circom_CalcWit* ctx);
 void POSEIDON_C_0(Circom_CalcWit* ctx,FrElement* lvar,uint componentFather,FrElement* destination,int destination_size);
 void POSEIDON_S_1(Circom_CalcWit* ctx,FrElement* lvar,uint componentFather,FrElement* destination,int destination_size);
 void POSEIDON_M_2(Circom_CalcWit* ctx,FrElement* lvar,uint componentFather,FrElement* destination,int destination_size);
@@ -220,7 +220,7 @@ Ark_66_run,
 MixLast_67_run,
 PoseidonEx_68_run,
 Poseidon_69_run,
-CheckSecret_70_run };
+CheckPassword_70_run };
 uint get_main_input_signal_start() {return 1;}
 
 uint get_main_input_signal_no() {return 4;}
@@ -215023,9 +215023,9 @@ Fr_copy(aux_dest,&ctx->signalValues[ctx->componentMemory[mySubcomponents[0]].sig
 }
 }
 
-void CheckSecret_70_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather){
+void CheckPassword_70_create(uint soffset,uint coffset,Circom_CalcWit* ctx,std::string componentName,uint componentFather){
 ctx->componentMemory[coffset].templateId = 70;
-ctx->componentMemory[coffset].templateName = "CheckSecret";
+ctx->componentMemory[coffset].templateName = "CheckPassword";
 ctx->componentMemory[coffset].signalStart = soffset;
 ctx->componentMemory[coffset].inputCounter = 4;
 ctx->componentMemory[coffset].componentName = componentName;
@@ -215033,7 +215033,7 @@ ctx->componentMemory[coffset].idFather = componentFather;
 ctx->componentMemory[coffset].subcomponents = new uint[1];
 }
 
-void CheckSecret_70_run(uint ctx_index,Circom_CalcWit* ctx){
+void CheckPassword_70_run(uint ctx_index,Circom_CalcWit* ctx){
 FrElement* signalValues = ctx->signalValues;
 u64 mySignalStart = ctx->componentMemory[ctx_index].signalStart;
 std::string myTemplateName = ctx->componentMemory[ctx_index].templateName;
@@ -215111,7 +215111,7 @@ assert(Fr_isTrue(&expaux[0]));
 }
 
 void run(Circom_CalcWit* ctx){
-CheckSecret_70_create(1,0,ctx,"main",0);
-CheckSecret_70_run(0,ctx);
+CheckPassword_70_create(1,0,ctx,"main",0);
+CheckPassword_70_run(0,ctx);
 }
 

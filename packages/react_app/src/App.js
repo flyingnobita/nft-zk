@@ -7,9 +7,9 @@ import {
   Container,
   Image,
   DivFlex,
-  DivSecret,
-  LabelSecret,
-  InputSecret,
+  DivPassword,
+  LabelPassword,
+  InputPassword,
   DivStatus,
   Title,
   BottomText,
@@ -49,30 +49,30 @@ import MintZKNftAbiJson from "@nft-zk/contracts/frontend/MintZKNft.json";
 import * as MintZKNftAddressJson from "@nft-zk/contracts/frontend/MintZKNft_address.json";
 
 const MintZKNftAddress = MintZKNftAddressJson.Contract;
-const vkeyJsonFilePlonk = "CheckSecret_verification_key_plonk.json";
-const vkeyJsonFileGroth16 = "CheckSecret_verification_key_groth16.json";
+const vkeyJsonFilePlonk = "CheckPassword_verification_key_plonk.json";
+const vkeyJsonFileGroth16 = "CheckPassword_verification_key_groth16.json";
 
-const hashedSecret1 =
+const hashedPassword1 =
   "2659885370391636708883459370353623141128982085472165018711164208023811132296";
-const hashedSecret2 =
+const hashedPassword2 =
   "4420175747054003989426052527768028062432413895992728912331985761657509285976";
-const hashedSecret3 =
+const hashedPassword3 =
   "16033069969059630745700456097076759987953764636749827514225296156239583210211";
 
 function App() {
   const [status, setStatus] = useState("");
   const [zkStatus, setZkStatus] = useState("");
   const [input, setInput] = useState({
-    a: hashedSecret1,
-    b: hashedSecret2,
-    c: hashedSecret3,
+    a: hashedPassword1,
+    b: hashedPassword2,
+    c: hashedPassword3,
     d: "",
   });
   const [proof, setProof] = useState(null);
   const [publicSignals, setPublicSignals] = useState();
   const [vkeyJson, setvkeyJson] = useState();
   const [solCallData, setSolCallData] = useState();
-  const [secret, setSecret] = useState("");
+  const [password, setPassword] = useState("");
   const [isGroth16, setGroth16] = useState(false);
   const [provider, setProvider] = useState(null);
 
@@ -121,7 +121,7 @@ function App() {
 
       showStatus("");
     } catch (err) {
-      showStatus("Secret incorrect");
+      showStatus("Password incorrect");
       // console.log(err);
       return;
     }
@@ -140,7 +140,7 @@ function App() {
         showStatus(result[1]);
       }
     } catch (err) {
-      showStatus("Secret incorrect");
+      showStatus("Password incorrect");
       // console.log(err);
     }
 
@@ -298,7 +298,7 @@ function App() {
       showZkStatus("Proof success");
     } catch (err) {
       // console.log(err);
-      showZkStatus("Secret incorrect");
+      showZkStatus("Password incorrect");
     }
   }
 
@@ -355,23 +355,23 @@ function App() {
           </ToggleContainer>
           <Image src={logo} alt="kanji" />
           <PriceText>Price - FREE</PriceText>
-          <DivSecret>
-            <LabelSecret>SECRET</LabelSecret>
+          <DivPassword>
+            <LabelPassword>PASSWORD</LabelPassword>
             <DivTooltip>
               (Hint)
               <DivTooltipText>Try one of: 11111, 22222, 33333</DivTooltipText>
             </DivTooltip>
-            <InputSecret
-              value={secret}
+            <InputPassword
+              value={password}
               onInput={(e) => {
-                setSecret(e.target.value);
+                setPassword(e.target.value);
                 setInput((prevState) => ({
                   ...prevState,
                   d: e.target.value,
                 }));
               }}
             />
-          </DivSecret>
+          </DivPassword>
           <DivFlex>
             <Button onClick={handleButtonMint}>Mint </Button>
           </DivFlex>
@@ -384,7 +384,7 @@ function App() {
                 <DivFlexFormContainer>
                   <DivFlexForm onSubmit={handleButtonProve}>
                     <DivFlexInputContainer>
-                      <label>Hashed Secret 1:</label>
+                      <label>Password Hash 1:</label>
                       <DivFlexInput
                         type="text"
                         value={input.a}
@@ -392,7 +392,7 @@ function App() {
                       />
                     </DivFlexInputContainer>
                     <DivFlexInputContainer>
-                      <label>Hashed Secret 2:</label>
+                      <label>Password Hash 2:</label>
                       <DivFlexInput
                         type="text"
                         value={input.b}
@@ -400,7 +400,7 @@ function App() {
                       />
                     </DivFlexInputContainer>
                     <DivFlexInputContainer>
-                      <label>Hashed Secret 3:</label>
+                      <label>Password Hash 3:</label>
                       <DivFlexInput
                         type="text"
                         value={input.c}
@@ -408,7 +408,7 @@ function App() {
                       />
                     </DivFlexInputContainer>
                     <DivFlexInputContainer>
-                      <label>Secret Input:</label>
+                      <label>Minter Password:</label>
                       <DivFlexInput
                         type="text"
                         value={input.d}

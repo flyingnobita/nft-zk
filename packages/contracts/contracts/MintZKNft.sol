@@ -4,8 +4,8 @@ pragma solidity ^0.8.4;
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import {PlonkVerifier} from "./CheckSecret_plonk.sol";
-import {Groth16Verifier} from "./CheckSecret_groth16.sol";
+import {PlonkVerifier} from "./CheckPassword_plonk.sol";
+import {Groth16Verifier} from "./CheckPassword_groth16.sol";
 
 contract MintZKNft is ERC721, Ownable {
     using Strings for uint256;

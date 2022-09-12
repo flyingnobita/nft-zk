@@ -1,7 +1,7 @@
 {
-  "Netowrk Chain ID": "4",
-  "Contract": "0xEEDa0f0B780e3487982fAA118FDb47Ba5483C69C",
+  "Netowrk Chain ID": "1337",
+  "Contract": "0xd95deE4d53DefeaE7F8070e446E5CEa934c24e9F",
   "Deployer": "0xFDE71f9FdeA5b04793E7DC47AF7E2C96E37b464b",
-  "Deployer Balance Before": "36.416272024223150457",
-  "Deployer Balance After": "36.400174032223150457"
+  "Deployer Balance Before": "9,999.99840503075",
+  "Deployer Balance After": "9,999.996837656980881661"
 }

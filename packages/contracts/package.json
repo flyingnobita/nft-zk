@@ -25,8 +25,8 @@
   "scripts": {
     "localnode": "doppler run --mount .env -- npx hardhat node",
     "compile": "npx hardhat compile",
-    "deployLocalhost": "npx hardhat run --network localhost scripts/01-deploy_CheckSecret_plonk.ts && npx hardhat run --network localhost scripts/02-deploy_MintZKNft.ts",
-    "deployRinkeby": "npx hardhat run --network rinkeby scripts/01-deploy_CheckSecret_plonk.ts && npx hardhat run --network rinkeby scripts/02-deploy_MintZKNft.ts"
+    "deployLocalnode": "npx hardhat run --network localhost scripts/01-deploy_CheckPassword_plonk.ts && npx hardhat run --network localhost scripts/02-deploy_MintZKNft.ts",
+    "deployRinkeby": "npx hardhat run --network rinkeby scripts/01-deploy_CheckPassword_plonk.ts && npx hardhat run --network rinkeby scripts/02-deploy_MintZKNft.ts"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
