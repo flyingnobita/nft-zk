@@ -74,8 +74,29 @@ function App() {
   const [solCallData, setSolCallData] = useState();
   const [secret, setSecret] = useState("");
   const [isGroth16, setGroth16] = useState(false);
+  const [provider, setProvider] = useState(null);
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const loadVerificationKey = useCallback(async () => {
+    await fetch(isGroth16 ? vkeyJsonFileGroth16 : vkeyJsonFilePlonk)
+      .then((response) => response.json())
+      .then((data) => {
+        setvkeyJson(data);
+      });
+  }, [isGroth16]);
+
+  useEffect(() => {
+    try {
+      const ret = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(ret);
+    } catch (error) {
+      console.log("Metamask not found");
+    }
+  }, []);
+
+  useEffect(() => {
+    loadVerificationKey();
+  }, [loadVerificationKey]);
+
   const showStatus = (inputStatus) => {
     setStatus(inputStatus);
   };
@@ -85,6 +106,12 @@ function App() {
 
   async function mint() {
     showStatus("");
+
+    if (!provider) {
+      showStatus("Metamask not found. Pleaes connect Metamask");
+      return;
+    }
+
     let solCallData, proof, publicSignals;
     try {
       showStatus("Generating proof...");
@@ -221,18 +248,6 @@ function App() {
       }
     }
   }
-
-  const loadVerificationKey = useCallback(async () => {
-    await fetch(isGroth16 ? vkeyJsonFileGroth16 : vkeyJsonFilePlonk)
-      .then((response) => response.json())
-      .then((data) => {
-        setvkeyJson(data);
-      });
-  }, [isGroth16]);
-
-  useEffect(() => {
-    loadVerificationKey();
-  }, [loadVerificationKey]);
 
   const handleAInputChange = (event) => {
     event.persist();
