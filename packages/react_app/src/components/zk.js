@@ -1,8 +1,8 @@
 import { groth16, plonk } from "snarkjs";
 
-const wasm = "CheckSecret.wasm";
-const zkeyFinalPlonk = "CheckSecret_plonk_final.zkey";
-const zkeyFinalGroth16 = "CheckSecret_groth16_final.zkey";
+const wasm = "CheckPassword.wasm";
+const zkeyFinalPlonk = "CheckPassword_plonk_final.zkey";
+const zkeyFinalGroth16 = "CheckPassword_groth16_final.zkey";
 
 export async function prove(input, isGroth16) {
   try {
@@ -10,10 +10,10 @@ export async function prove(input, isGroth16) {
     if (isGroth16) {
       ({ proof, publicSignals } = await groth16.fullProve(
         {
-          secretHashed1: input.a,
-          secretHashed2: input.b,
-          secretHashed3: input.c,
-          secret: input.d,
+          passwordHashed1: input.a,
+          passwordHashed2: input.b,
+          passwordHashed3: input.c,
+          password: input.d,
         },
         wasm,
         zkeyFinalGroth16
@@ -21,10 +21,10 @@ export async function prove(input, isGroth16) {
     } else {
       ({ proof, publicSignals } = await plonk.fullProve(
         {
-          secretHashed1: input.a,
-          secretHashed2: input.b,
-          secretHashed3: input.c,
-          secret: input.d,
+          passwordHashed1: input.a,
+          passwordHashed2: input.b,
+          passwordHashed3: input.c,
+          password: input.d,
         },
         wasm,
         zkeyFinalPlonk

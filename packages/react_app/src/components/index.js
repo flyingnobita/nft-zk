@@ -45,7 +45,7 @@ export const DivFlex = styled.div`
   align-items: center;
 `;
 
-export const DivSecret = styled.div`
+export const DivPassword = styled.div`
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -53,12 +53,12 @@ export const DivSecret = styled.div`
   margin: 0px 20px 20px 20px;
 `;
 
-export const LabelSecret = styled.label`
+export const LabelPassword = styled.label`
   font-size: 1em;
   color: #282c34;
 `;
 
-export const InputSecret = styled.input`
+export const InputPassword = styled.input`
   border: none;
   border-bottom: 2px solid #282c34;
   font-family: "Harukaze";

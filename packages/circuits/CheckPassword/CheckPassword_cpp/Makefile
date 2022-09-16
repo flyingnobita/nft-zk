@@ -10,7 +10,7 @@ ifeq ($(shell uname),Linux)
 	NASM=nasm -felf64
 endif
 	
-all: CheckSecret
+all: CheckPassword
 	
 %.o: %.cpp $(DEPS_HPP)
 	$(CC) -c $< $(CFLAGS)
@@ -18,5 +18,5 @@ all: CheckSecret
 fr_asm.o: fr.asm
 	$(NASM) fr.asm -o fr_asm.o
 	
-CheckSecret: $(DEPS_O) CheckSecret.o
-	$(CC) -o CheckSecret *.o -lgmp 
+CheckPassword: $(DEPS_O) CheckPassword.o
+	$(CC) -o CheckPassword *.o -lgmp 
