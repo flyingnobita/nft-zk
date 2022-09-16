@@ -373,7 +373,7 @@ function App() {
             />
           </DivPassword>
           <DivFlex>
-            <Button onClick={handleButtonMint}>Mint </Button>
+            <Button onClick={handleButtonMint}>Mint (Rinkeby)</Button>
           </DivFlex>
           <DivStatus>{status}</DivStatus>
           <DivLeftAlign>
