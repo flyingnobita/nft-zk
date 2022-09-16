@@ -74,4 +74,4 @@ If you update `CheckSecret.circom` and  `CheckSecret_input.json`, you can use th
 
 ## Contact
 
-[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40FlyingNobita)](https://twitter.com/FlyingNobita){:target="_blank"} 
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40FlyingNobita)](https://twitter.com/FlyingNobita)
