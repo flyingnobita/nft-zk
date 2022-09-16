@@ -23,7 +23,8 @@
     "typescript": "^4.8.2"
   },
   "scripts": {
-    "localnode": "doppler run --mount .env -- npx hardhat node",
+    "localnode": "npx hardhat node",
+    "localnodedoDoppler": "doppler run --mount .env -- npx hardhat node",
     "compile": "npx hardhat compile",
     "deployLocalhost": "npx hardhat run --network localhost scripts/01-deploy_CheckSecret_plonk.ts && npx hardhat run --network localhost scripts/02-deploy_MintZKNft.ts",
     "deployRinkeby": "npx hardhat run --network rinkeby scripts/01-deploy_CheckSecret_plonk.ts && npx hardhat run --network rinkeby scripts/02-deploy_MintZKNft.ts"

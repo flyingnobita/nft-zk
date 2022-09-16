@@ -62,4 +62,7 @@ snarkjs zkey export soliditycalldata proof/$1_public_$2.json proof/$1_proof_$2.j
 ## 7.3. Generate Verify Solidity Contract
 snarkjs zkey export solidityverifier zkeys/$1_$2_final.zkey proof/$1_$2.sol
 
+## 8. Copy wasm, zkey and verification key to react_app
+cp $1_js/$1.wasm zkeys/$1_$2_final.zkey zkeys/$1_verification_key_$2.json ../../react_app/public/
+
 set +ex
