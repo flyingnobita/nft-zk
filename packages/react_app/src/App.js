@@ -376,6 +376,13 @@ function App() {
             <Button onClick={handleButtonMint}>Mint (Rinkeby)</Button>
           </DivFlex>
           <DivStatus>{status}</DivStatus>
+          <DivFlex>
+            <p>
+              <Link href="https://flyingnobita.com/posts/2022/09/09/mint-nft-zk">
+                blog post
+              </Link>
+            </p>
+          </DivFlex>
           <DivLeftAlign>
             <Details>
               <Summary>ZK Details</Summary>
