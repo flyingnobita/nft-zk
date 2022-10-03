@@ -378,7 +378,7 @@ function App() {
           <DivStatus>{status}</DivStatus>
           <DivFlex>
             <p>
-              <Link href="https://flyingnobita.com/posts/2022/09/09/mint-nft-zk">
+              <Link href="https://jansonmak.com/minting-nf-ts-with-zero-knowledge-proof">
                 blog post
               </Link>
             </p>
@@ -469,7 +469,7 @@ function App() {
             </p>
           </BottomText>
           <LinkLogoContainer>
-            <Link href="https://github.com/flyingnobita/nft-zk">
+            <Link href="https://github.com/flyingnobita/nft-zk/tree/url">
               <LinkLogo src={githubLogo} alt="github" />
             </Link>
             <Link href="https://testnets.opensea.io/collection/kanji-v3">

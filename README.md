@@ -1,6 +1,6 @@
 # Mint AI Generated Kanji NFTs with Zero Knowledge
 
-> For more information on the circuit generation, you can read more about it in my [blog post](https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa) I wrote.
+> For more information on the circuit generation, you can read more about it in my [blog post](https://jansonmak.com/minting-nf-ts-with-zero-knowledge-proof) I wrote.
 
 ## Installing Prerequisite
 
@@ -71,7 +71,3 @@ If you update `CheckSecret.circom` and  `CheckSecret_input.json`, you can use th
 - [ ] add nullifier
 - [ ] add test cases
 - [ ] allow string as passwords
-
-## Contact
-
-[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40FlyingNobita)](https://twitter.com/FlyingNobita)
