@@ -1,6 +1,6 @@
 # Mint AI Generated Kanji NFTs with Zero Knowledge
 
-> For more information on the circuit generation, you can read more about it in my [blog post](https://flyingnobita.com/posts/2022/05/07/mint-nft-ecdsa) I wrote.
+> For more information on the circuit generation, you can read more about it in my [blog post](https://flyingnobita.com/posts/2022/09/09/mint-nft-zk) I wrote.
 
 ## Installing Prerequisite
 
