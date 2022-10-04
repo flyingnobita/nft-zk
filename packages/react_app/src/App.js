@@ -378,7 +378,7 @@ function App() {
           <DivStatus>{status}</DivStatus>
           <DivFlex>
             <p>
-              <Link href="https://jansonmak.com/minting-nf-ts-with-zero-knowledge-proof">
+              <Link href="https://jansonmak.com/minting-nfts-with-zero-knowledge-proof">
                 blog post
               </Link>
             </p>

@@ -1,6 +1,6 @@
 # Mint AI Generated Kanji NFTs with Zero Knowledge
 
-> For more information on the circuit generation, you can read more about it in my [blog post](https://jansonmak.com/minting-nf-ts-with-zero-knowledge-proof) I wrote.
+> For more information on the circuit generation, you can read more about it in my [blog post](https://jansonmak.com/minting-nfts-with-zero-knowledge-proof) I wrote.
 
 ## Installing Prerequisite
 
