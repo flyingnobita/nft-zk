@@ -30,7 +30,7 @@
     "deployRinkeby": "npx hardhat run --network rinkeby scripts/01-deploy_CheckPassword_plonk.ts && npx hardhat run --network rinkeby scripts/02-deploy_MintZKNft.ts"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.7.3",
+    "@openzeppelin/contracts": "^4.9.6",
     "dotenv": "^16.0.1"
   }
 }
